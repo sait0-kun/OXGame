@@ -68,15 +68,14 @@ class Game extends React.Component {
     this.setState({
       history: history.concat([
         {
-          squares: squares // []内に{}を収納　例:[0:{squares: Array(9)}]
+          squares: squares, // []内に{}を収納 例:[0:{squares: Array(9)}]
+          col: (i % 3) + 1, // 0~8の剰余で列設定
+          row: Math.floor(i / 3) + 1 //0~8の除算、小数点以下切り捨てで行設定
         }
       ]),
       stepNumber: history.length, // history配列の長さで更新
       xIsNext: !this.state.xIsNext // true false の反転
     });
-
-    //console.debug(history); // testCode
-    //console.debug(squares); // testCode
   }
 
   jumpTo(step) {
@@ -93,7 +92,7 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        'Go to move #' + move + '('+ step.row + ',' + step.col +')':
         'Go to game start';
       return (
         <li key={move}>
@@ -101,7 +100,7 @@ class Game extends React.Component {
         </li>
       );
     });
-
+    
     let status;
     if (winner) { //勝敗判定
       status = "Winner: " + winner; 
