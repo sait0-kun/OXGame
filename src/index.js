@@ -94,9 +94,9 @@ class Game extends React.Component {
       const desc = move ?
         'Go to move #' + move + '('+ step.row + ',' + step.col +')':
         'Go to game start';
-      return (
+      return ( // 最新の着手に'bold-btn'のクラスを付与
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)} className={this.state.stepNumber === move ? 'bold-btn': ''}>{desc}</button>
         </li>
       );
     });
